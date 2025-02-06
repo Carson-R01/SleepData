@@ -40,5 +40,11 @@ if (resp == "1")
 }
 else if (resp == "2")
 {
-    // TODO: parse data file
+    if (!File.Exists("data.txt"))
+    {
+        Console.WriteLine("Data file not found. Please create data first.");
+    }
+    else{
+        Console.WriteLine("File Found");
+    }
 }
