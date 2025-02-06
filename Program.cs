@@ -47,4 +47,30 @@ else if (resp == "2")
     else{
         Console.WriteLine("File Found");
     }
+    string[] lines = File.ReadAllLines("data.txt");
+
+    foreach (string line in lines)
+    {
+        // Split the line into date and sleep data
+        string[] parts = line.Split(",");
+        string weekStartDate = parts[0];
+        string[] sleepHours = parts[1].Split("|");
+
+        // Convert sleepHours to integers
+        int[] sleepData = Array.ConvertAll(sleepHours, int.Parse);
+
+        // Calculate total and average sleep
+        int totalSleep = sleepData.Sum();
+        double avgSleep = Math.Round(totalSleep / 7.0, 1);
+
+        // Display the weekly report
+        Console.WriteLine($"Week of {DateTime.Parse(weekStartDate):MMM, dd, yyyy}");
+        Console.WriteLine(" Su Mo Tu We Th Fr Sa Tot Avg");
+        Console.WriteLine(" -- -- -- -- -- -- -- --- ---");
+
+        // Print sleep hours with correct spacing
+        Console.WriteLine($" {string.Join(" ", sleepData.Select(h => h.ToString().PadLeft(2)))}  {totalSleep.ToString().PadLeft(3)} {avgSleep.ToString("0.0").PadLeft(4)}");
+
+        Console.WriteLine();
+    }
 }
